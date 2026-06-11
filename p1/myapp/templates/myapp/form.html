@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter a Number</title>
+</head>
+<body>
+    <h1>Enter a Number</h1>
+    <form method="GET" action="{% url 'hello' %}">
+        <input type="number" name="num" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if number %}
+        <p>You entered: {{ number }}</p>
+    {% endif %}
+</body>
+</html>

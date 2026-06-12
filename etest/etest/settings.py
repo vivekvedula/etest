@@ -1,4 +1,5 @@
 from pathlib import Path
+print("🔥 RUNNING SETTINGS FROM:", __file__)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,8 +32,8 @@ ROOT_URLCONF = 'etest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],        # optional
-        'APP_DIRS': True,  # important to find templates inside apps
+        'DIRS': [],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -53,5 +54,5 @@ DATABASES = {
 }
 
 STATIC_URL = 'static/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'myapp.User'

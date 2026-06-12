@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Questions</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .test {
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .option {
+            margin-left: 15px;
+        }
+
+        .correct {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>All Questions</h1>
+
+{% for q in questions %}
+<div class="card">
+
+    <div class="test">
+        Test ID: {{ q.test.id }}
+    </div>
+
+    <p><b>Q:</b> {{ q.question_text }}</p>
+
+    <div class="option">A: {{ q.option1 }}</div>
+    <div class="option">B: {{ q.option2 }}</div>
+    <div class="option">C: {{ q.option3 }}</div>
+    <div class="option">D: {{ q.option4 }}</div>
+
+    <p class="correct">Correct: {{ q.correct_option }}</p>
+
+</div>
+{% empty %}
+    <p>No questions found.</p>
+{% endfor %}
+
+</body>
+</html>

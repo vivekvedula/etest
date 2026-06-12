@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Admin Dashboard</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            font-family: Arial;
+            background: #f7f7f7;
             margin: 20px;
         }
 
         h1 {
             text-align: center;
-            color: #333;
         }
 
         .overview {
@@ -22,131 +21,69 @@
         }
 
         .card {
-            background-color: white;
-            padding: 15px 20px;
+            background: white;
+            padding: 15px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
             width: 22%;
-            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-radius: 5px;
         }
 
         .section {
-            background-color: white;
-            padding: 15px 20px;
-            margin: 15px 0;
-            border-radius: 5px;
+            background: white;
+            padding: 15px;
+            margin-top: 15px;
             border: 1px solid #ccc;
-        }
-
-        .section h2 {
-            margin-bottom: 10px;
-            color: #555;
+            border-radius: 5px;
         }
 
         .section a {
             display: inline-block;
-            margin: 5px 8px;
-            padding: 6px 12px;
-            background-color: #007bff;
+            margin: 5px;
+            padding: 8px 12px;
+            background: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 4px;
-            font-size: 14px;
         }
 
         .section a:hover {
-            background-color: #0056b3;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid #ccc;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        .user-table {
-            margin-top: 15px;
+            background: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <h1>Admin Dashboard</h1>
 
-    <!-- Overview Cards -->
-    <div class="overview">
-        <div class="card">Total Tests: {{ total_tests }}</div>
-        <div class="card">Total Students: {{ total_students }}</div>
-        <div class="card">Total Admins: {{ total_admins }}</div>
-        <div class="card">Pending Results: 0</div>
-    </div>
+<h1>Admin Dashboard</h1>
 
-    <!-- Test Management -->
-    <div class="section">
-        <h2>Test Management</h2>
-        <a href="#">Create Test</a>
-        <a href="#">View Tests</a>
-    </div>
+<!-- OVERVIEW -->
+<div class="overview">
+    <div class="card">Tests: {{ total_tests }}</div>
+    <div class="card">Students: {{ total_students }}</div>
+    <div class="card">Admins: {{ total_admins }}</div>
+    <div class="card">Results: {{ total_results }}</div>
+</div>
 
-    <!-- Question Management -->
-    <div class="section">
-        <h2>Question Management</h2>
-        <a href="#">Add Question</a>
-        <a href="#">View Questions</a>
-    </div>
+<!-- TEST MANAGEMENT -->
+<div class="section">
+    <h2>Test Management</h2>
+    <a href="{% url 'create_test' %}">Create Test</a>
+    <a href="{% url 'view_tests' %}">View Tests</a>
+</div>
 
-    <!-- Student / User Management -->
-    <div class="section">
-        <h2>All Users</h2>
-        <table class="user-table">
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-            </tr>
-            {% for user in all_users %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    {% if user.is_superuser %}Admin{% elif user.is_student %}Student{% else %}Other{% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
+<!-- QUESTION MANAGEMENT -->
+<div class="section">
+    <h2>Question Management</h2>
+    <a href="{% url 'add_question' %}">Add Question</a>
+    <a href="{% url 'view_questions' %}">View Questions</a>
+</div>
 
-    <!-- Result Management -->
-    <div class="section">
-        <h2>Result Management</h2>
-        <a href="#">View Results</a>
-        <a href="#">Download Results</a>
-    </div>
-
-    <!-- Notifications -->
-    <div class="section">
-        <h2>Notifications</h2>
-        <a href="#">Send Notification</a>
-        <a href="#">Remind Students</a>
-    </div>
+<!-- RESULTS -->
+<div class="section">
+    <h2>Result Management</h2>
+    <a href="{% url 'view_results' %}">View Results</a>
+</div>
 
 </body>
-
 </html>

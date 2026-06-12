@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Tests</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 1px 1px 5px rgba(0,0,0,0.05);
+        }
+
+        .title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .meta {
+            margin-top: 5px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: #218838;
+        }
+
+        .empty {
+            text-align: center;
+            color: gray;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>All Tests</h1>
+
+<div class="container">
+
+    {% for test in tests %}
+        <div class="card">
+            <div class="title">{{ test.title }}</div>
+
+            <div class="meta">
+                Duration: {{ test.duration }} mins <br>
+                Total Marks: {{ test.total_marks }} <br>
+                Created: {{ test.created_at }}
+            </div>
+
+            <a href="#" class="btn">View Questions</a>
+        </div>
+    {% empty %}
+        <div class="empty">
+            No tests found.
+        </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

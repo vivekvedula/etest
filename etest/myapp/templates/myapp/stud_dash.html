@@ -3,6 +3,7 @@
 
 <head>
     <title>Student Dashboard - E-Test Platform</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,14 +30,11 @@
             background-color: #fff;
         }
 
-        table,
-        th,
-        td {
+        table, th, td {
             border: 1px solid #ccc;
         }
 
-        th,
-        td {
+        th, td {
             padding: 10px;
             text-align: left;
         }
@@ -57,62 +55,121 @@
             background-color: #003399;
         }
 
-        h2,
-        h3 {
+        h2, h3 {
             color: #0044cc;
+        }
+
+        /* Summary box */
+        .summary {
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Progress bar */
+        .progress {
+            width: 100%;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            width: {{ percentage }}%;
+            background-color: #0044cc;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="header">
-        <h2>E-Test Platform</h2>
-        <p>Welcome, {{ request.user.username }}
-    </div>
-    <div class="container">
-        <!-- Available Tests -->
-        <h3>Available Tests</h3>
-        <table>
-            <tr>
-                <th>Test Name</th>
-                <th>Duration (mins)</th>
-                <th>Total Marks</th>
-                <th>Action</th>
-            </tr>
-            {% for test in available_tests %}
-            <tr>
-                <td>{{ test.name }}</td>
-                <td>{{ test.duration }}</td>
-                <td>{{ test.total_marks }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="4">No available tests</td>
-            </tr>
-            {% endfor %}
-        </table>
 
-        <!-- Completed Tests -->
-        <h3>Completed Tests</h3>
-        <table>
-            <tr>
-                <th>Test Name</th>
-                <th>Score</th>
-                <th>Date</th>
-            </tr>
-            {% for attempt in completed_tests %}
-            <tr>
-                <td>{{ attempt.test.name }}</td>
-                <td>{{ attempt.score }}</td>
-                <td>{{ attempt.submitted_at|date:"d M Y H:i" }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">No completed tests yet</td>
-            </tr>
-            {% endfor %}
-        </table>
+<div class="header">
+    <h2>E-Test Platform</h2>
+    <p>Welcome, {{ request.user.username }}</p>
+</div>
+
+<div class="container">
+
+    <!-- SUMMARY -->
+    <div class="summary">
+
+        <h3>My Performance Summary</h3>
+
+        <p><b>Total Tests Attempted:</b> {{ total_attempts }}</p>
+
+        <p><b>Total Score:</b> {{ total_score }} / {{ total_max }}</p>
+
+        <p><b>Percentage:</b> {{ percentage }}%</p>
+
+        <!-- Progress Bar -->
+        <div class="progress">
+            <div class="progress-bar">
+                {{ percentage }}%
+            </div>
+        </div>
+
     </div>
+
+    <!-- AVAILABLE TESTS -->
+    <h3>Available Tests</h3>
+
+    <table>
+        <tr>
+            <th>Test Name</th>
+            <th>Duration (mins)</th>
+            <th>Total Marks</th>
+            <th>Action</th>
+        </tr>
+
+        {% for test in available_tests %}
+        <tr>
+            <td>{{ test.title }}</td>
+            <td>{{ test.duration }}</td>
+            <td>{{ test.total_marks }}</td>
+            <td>
+                <a class="btn" href="{% url 'start_test' test.id %}">
+                    Start Test
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No available tests</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- COMPLETED TESTS -->
+    <h3>Completed Tests</h3>
+
+    <table>
+        <tr>
+            <th>Test Name</th>
+            <th>Score</th>
+            <th>Date</th>
+        </tr>
+
+        {% for attempt in completed_tests %}
+        <tr>
+            <td>{{ attempt.test.title }}</td>
+            <td>{{ attempt.score }}</td>
+            <td>{{ attempt.submitted_at|date:"d M Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No completed tests yet</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
 </body>
-
 </html>
